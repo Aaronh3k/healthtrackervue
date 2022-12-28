@@ -69,7 +69,6 @@
 <script>
 import { useRoute } from 'vue-router'
 import ActivityService from "../services/activity.service";
-import UserService from "../services/user.service";
 
 export default {
   name: "Activity",

@@ -5,50 +5,16 @@
       lazy-validation
   >
     <v-text-field
-        v-model="username"
-        :counter="15"
-        :rules="usernameRules"
-        label="User Name"
+        v-model="name"
+        label="Category Name"
         required
     ></v-text-field>
 
     <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="E-mail"
+        v-model="description"
+        label="Description"
         required
     ></v-text-field>
-
-    <v-text-field
-        v-model="firstname"
-        :counter="15"
-        :rules="firstnameRules"
-        label="First Name"
-        required
-    ></v-text-field>
-
-    <v-text-field
-        v-model="lastname"
-        :counter="15"
-        :rules="lastnameRules"
-        label="Last Name"
-        required
-    ></v-text-field>
-
-    <v-text-field
-        v-model="date"
-        label="DOB"
-        v-bind="attrs"
-        v-on="on"
-    ></v-text-field>
-
-    <v-select
-        v-model="gender"
-        :items="items"
-        :rules="[v => !!v || 'Gender is required']"
-        label="Gender"
-        required
-    ></v-select>
 
     <v-text-field
         v-model="createdAt"
@@ -56,7 +22,7 @@
         readonly
     ></v-text-field>
 
-    <v-btn color="success" small class="mr-2" @click="submit">
+    <v-btn color="success" small class="mr-2" @click="updateCategory(categoryId)">
       submit
     </v-btn>
 
@@ -69,66 +35,48 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import CategoryService from "../services/category.service";
 
 export default {
   name: "Category",
   data() {
     return {
       valid: true,
-      username: '',
-      usernameRules: [
-        v => !!v || 'User Name is required',
-        v => (v && v.length <= 15) || 'User Name must be less than 15 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      firstname: '',
-      firstnameRules: [
-        v => !!v || 'First Name is required',
-        v => (v && v.length <= 15) || 'First Name must be less than 15 characters',
-      ],
-      lastname: '',
-      lastnameRules: [
-        v => !!v || 'Last Name is required',
-        v => (v && v.length <= 15) || 'Last Name must be less than 15 characters',
-      ],
-      date: '',
-      items: [
-        'M',
-        'F'
-      ],
-      gender: '',
+      name: '',
+      categoryId: '',
+      description: '',
       createdAt: ''
     };
   },
-  setup(){
+  mounted() {
     const route = useRoute();
-    const id = route.params.userid;
-    console.log(id)
+    const id = route.params.categoryid;
+    CategoryService.getCategoryById(id).then(
+        (response) => {
+          this.categoryId = id;
+          this.name = response.data.name;
+          this.description = response.data.description;
+          this.createdAt = response.data.created_at;
+        }
+    );
   },
   methods: {
-    submit () {
-      console.log(this.username)
-      //this.$refs.observer.validate()
+    updateCategory(categoryId) {
+      var data = {
+        name : this.name,
+        description : this.description,
+      }
+      CategoryService.updateCategoryById(categoryId, data)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      window.location.reload();
     },
     clear () {
-      this.username = ''
-      this.email = ''
-      this.$refs.observer.reset()
-    },
-    async validate () {
-      const { valid } = await this.$refs.form.validate()
 
-      if (valid) alert('Form is valid')
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
     },
   },
 }

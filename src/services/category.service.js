@@ -10,6 +10,16 @@ class CategoriesService {
         return this.categories
     }
 
+    getCategoryById(categoryId) {
+        this.category = axios.get(API_URL + 'categories/' + categoryId, { headers: authHeader() });
+        return this.category
+    }
+
+    updateCategoryById(categoryId, data) {
+        this.category = axios.patch(API_URL + 'categories/' + categoryId, data, { headers: authHeader() });
+        return this.category
+    }
+
 }
 
 export default new CategoriesService();

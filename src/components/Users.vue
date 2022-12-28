@@ -12,6 +12,7 @@
         Email
       </th>
       <th class="text-left">
+        Actions
       </th>
     </tr>
     </thead>
@@ -27,7 +28,7 @@
         <v-btn  icon :to="'/user/' + item.id">
              <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn  icon :to="'/user/' + item.id">
+        <v-btn  icon @click="deleteUser(item.id)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </td>
@@ -66,6 +67,18 @@ export default {
         );
       }
       }
+    },
+  methods: {
+    deleteUser(userId) {
+      UserService.deleteUserById(userId)
+          .then((response) => {
+            console.log(response.data);
+            this.$router.push("/users");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
     }
+  }
   }
 </script>

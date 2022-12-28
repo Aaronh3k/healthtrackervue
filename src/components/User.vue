@@ -24,7 +24,6 @@
         :counter="15"
         :rules="firstnameRules"
         label="First Name"
-        required
     ></v-text-field>
 
     <v-text-field
@@ -32,14 +31,11 @@
         :counter="15"
         :rules="lastnameRules"
         label="Last Name"
-        required
     ></v-text-field>
 
     <v-text-field
-        v-model="date"
+        v-model="dob"
         label="DOB"
-        v-bind="attrs"
-        v-on="on"
     ></v-text-field>
 
     <v-select
@@ -47,7 +43,6 @@
         :items="items"
         :rules="[v => !!v || 'Gender is required']"
         label="Gender"
-        required
     ></v-select>
 
     <v-text-field
@@ -56,7 +51,7 @@
         readonly
     ></v-text-field>
 
-    <v-btn color="success" small class="mr-2" @click="submit">
+    <v-btn color="success" small class="mr-2" @click="updateUserProfile(userId, profileId)">
       submit
     </v-btn>
 
@@ -69,6 +64,8 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import UserService from "../services/user.service";
+import ProfilesService from "../services/profile.service";
 
 export default {
   name: "User",
@@ -95,40 +92,72 @@ export default {
         v => !!v || 'Last Name is required',
         v => (v && v.length <= 15) || 'Last Name must be less than 15 characters',
       ],
-      date: '',
+      dob: '',
       items: [
         'M',
         'F'
       ],
       gender: '',
-      createdAt: ''
+      createdAt: '',
+      userId: '',
+      profileId: ''
     };
   },
-  setup(){
+  mounted() {
     const route = useRoute();
     const id = route.params.userid;
-    console.log(id)
+    UserService.getUserById(id).then(
+        (response) => {
+          this.userId = id
+          this.username = response.data.user_name;
+          this.email = response.data.email;
+        }
+    );
+    ProfilesService.getProfileByUserId(id).then(
+        (response) => {
+          this.profileId = response.data.id;
+          this.firstname = response.data.first_name;
+          this.lastname = response.data.last_name;
+          this.dob = response.data.dob;
+          this.gender = response.data.gender;
+          this.createdAt = response.data.created_at;
+        }
+    );
   },
   methods: {
-    submit () {
-      console.log(this.username)
-      //this.$refs.observer.validate()
+    updateUserProfile(userId, profileId) {
+      var user_data = {
+        user_name : this.username,
+        email : this.email
+      }
+      var profile_data = {
+        first_name : this.firstname,
+        last_name : this.lastname,
+        dob: this.dob,
+        gender: this.gender
+      }
+      UserService.updateUserById(userId, user_data)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      ProfilesService.updateProfileById(profileId, profile_data)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      window.location.reload();
     },
     clear () {
       this.username = ''
-      this.email = ''
-      this.$refs.observer.reset()
-    },
-    async validate () {
-      const { valid } = await this.$refs.form.validate()
-
-      if (valid) alert('Form is valid')
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
+      this.firstname = ''
+      this.lastname = ''
+      this.gender = ''
+      this.dob = ''
     },
   },
 }

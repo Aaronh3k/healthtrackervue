@@ -24,9 +24,14 @@
       <td>{{ item.user_name }}</td>
       <td>{{ item.email }}</td>
       <td>
-        <router-link :to="'/user/' + item.id" class="nav-link">
-        More Details..
-      </router-link>
+        <v-btn  icon :to="'/user/' + item.id">
+             <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn  icon :to="'/user/' + item.id">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </td>
+      <td>
       </td>
     </tr>
     </tbody>

@@ -8,15 +8,15 @@
           <router-link v-if="!showAdminBoard && currentUser" to="/users" class="nav-link">Activities</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="showAdminBoard" to="/users" class="nav-link">Activities</router-link>
+          <router-link v-if="showAdminBoard" to="/activities" class="nav-link">Activities</router-link>
           <router-link v-if="!showAdminBoard && currentUser" to="/users" class="nav-link">Goals</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="showAdminBoard" to="/users" class="nav-link">Goals</router-link>
+          <router-link v-if="showAdminBoard" to="/goals" class="nav-link">Goals</router-link>
           <router-link v-if="!showAdminBoard && currentUser" to="/users" class="nav-link">Categories</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="showAdminBoard && currentUser" to="/users" class="nav-link">Categories</router-link>
+          <router-link v-if="showAdminBoard && currentUser" to="/categories" class="nav-link">Categories</router-link>
         </li>
       </div>
 

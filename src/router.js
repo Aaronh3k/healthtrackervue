@@ -8,6 +8,7 @@ const BoardAdmin = () => import("./components/AdminDashboard.vue")
 const BoardUser = () => import("./components/UserDashboard.vue")
 const Users = () => import("./components/Users.vue")
 const User = () => import("./components/User.vue")
+const Activities = () => import("./components/Activities.vue")
 
 const routes = [
     {
@@ -52,6 +53,12 @@ const routes = [
         name: "user",
         // lazy-loaded
         component: User,
+    },
+    {
+        path: '/activities',
+        name: "activities",
+        // lazy-loaded
+        component: Activities,
     },
 ];
 

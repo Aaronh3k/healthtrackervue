@@ -33,8 +33,8 @@
       <div class="card">
         <h5 class="card-header">Number Of Categories</h5>
         <div class="card-body">
-          <h5 class="card-title">{{users.length}}</h5>
-          <router-link to="/users" class="nav-link">
+          <h5 class="card-title">{{categories.length}}</h5>
+          <router-link to="/categories" class="nav-link">
             <font-awesome-icon icon="user" /> More Details..
           </router-link>
         </div>
@@ -44,8 +44,8 @@
       <div class="card">
         <h5 class="card-header">Number Of Goals</h5>
         <div class="card-body">
-          <h5 class="card-title">{{users.length}}</h5>
-          <router-link to="/users" class="nav-link">
+          <h5 class="card-title">{{goals.length}}</h5>
+          <router-link to="/goals" class="nav-link">
             More Details..
           </router-link>
         </div>
@@ -60,6 +60,8 @@
 <script>
 import UserService from "../services/user.service";
 import ActivityService from "@/services/activity.service";
+import CategoryService from "@/services/category.service";
+import GoalService from "@/services/goal.service";
 
 export default {
   // eslint-disable-next-line
@@ -68,6 +70,8 @@ export default {
     return {
       users: [],
       activities: [],
+      categories: [],
+      goals: [],
       user: ""
     };
   },
@@ -90,6 +94,16 @@ export default {
         ActivityService.getAllActivities().then(
             (response) => {
               this.activities = response.data;
+            }
+        );
+        CategoryService.getAllCategories().then(
+            (response) => {
+              this.categories = response.data;
+            }
+        );
+        GoalService.getAllGoals().then(
+            (response) => {
+              this.goals = response.data;
             }
         )
       } else {

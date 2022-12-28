@@ -9,6 +9,11 @@ const BoardUser = () => import("./components/UserDashboard.vue")
 const Users = () => import("./components/Users.vue")
 const User = () => import("./components/User.vue")
 const Activities = () => import("./components/Activities.vue")
+const Activity = () => import("./components/Activity.vue")
+const Categories = () => import("./components/Categories.vue")
+const Category = () => import("./components/Category.vue")
+const Goals = () => import("./components/Goals.vue")
+const Goal = () => import("./components/Goal.vue")
 
 const routes = [
     {
@@ -59,6 +64,36 @@ const routes = [
         name: "activities",
         // lazy-loaded
         component: Activities,
+    },
+    {
+        path: '/activities/:activityid',
+        name: "activity",
+        // lazy-loaded
+        component: Activity,
+    },
+    {
+        path: '/categories',
+        name: "categories",
+        // lazy-loaded
+        component: Categories,
+    },
+    {
+        path: '/categories/:categoryid',
+        name: "category",
+        // lazy-loaded
+        component: Category,
+    },
+    {
+        path: '/goals',
+        name: "goals",
+        // lazy-loaded
+        component: Goals,
+    },
+    {
+        path: '/goals/:goalid',
+        name: "goal",
+        // lazy-loaded
+        component: Goal,
     },
 ];
 

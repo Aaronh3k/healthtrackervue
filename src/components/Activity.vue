@@ -5,50 +5,49 @@
       lazy-validation
   >
     <v-text-field
-        v-model="username"
-        :counter="15"
-        :rules="usernameRules"
-        label="User Name"
+        v-model="userId"
+        label="User ID"
+        readonly
+    ></v-text-field>
+
+    <v-text-field
+        v-model="categoryId"
+        label="Category ID"
+        readonly
+    ></v-text-field>
+
+    <v-text-field
+        v-model="description"
+        label="Description"
+        required
+    ></v-text-field>
+
+    <v-
+        v-model="duration"
+        label="Duration"
+        type="float"
+    ></v->
+
+    <v-text-field
+        v-model="calories"
+        type="float"
+        label="Calories"
+        suffix="kcal"
         required
     ></v-text-field>
 
     <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        label="E-mail"
+        v-model="started"
+        label="Starting"
         required
     ></v-text-field>
 
     <v-text-field
-        v-model="firstname"
-        :counter="15"
-        :rules="firstnameRules"
-        label="First Name"
-        required
+        v-model="distance"
+        type="float"
+        label="Distance Covered"
+        suffix="km"
     ></v-text-field>
-
-    <v-text-field
-        v-model="lastname"
-        :counter="15"
-        :rules="lastnameRules"
-        label="Last Name"
-        required
-    ></v-text-field>
-
-    <v-text-field
-        v-model="date"
-        label="DOB"
-        v-bind="attrs"
-        v-on="on"
-    ></v-text-field>
-
-    <v-select
-        v-model="gender"
-        :items="items"
-        :rules="[v => !!v || 'Gender is required']"
-        label="Gender"
-        required
-    ></v-select>
 
     <v-text-field
         v-model="createdAt"
@@ -56,7 +55,7 @@
         readonly
     ></v-text-field>
 
-    <v-btn color="success" small class="mr-2" @click="submit">
+    <v-btn color="success" small class="mr-2" @click="updateActivity(activityId)">
       submit
     </v-btn>
 
@@ -69,6 +68,8 @@
 
 <script>
 import { useRoute } from 'vue-router'
+import ActivityService from "../services/activity.service";
+import UserService from "../services/user.service";
 
 export default {
   name: "Activity",
@@ -76,61 +77,63 @@ export default {
     return {
       valid: true,
       username: '',
-      usernameRules: [
-        v => !!v || 'User Name is required',
-        v => (v && v.length <= 15) || 'User Name must be less than 15 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      firstname: '',
-      firstnameRules: [
-        v => !!v || 'First Name is required',
-        v => (v && v.length <= 15) || 'First Name must be less than 15 characters',
-      ],
-      lastname: '',
-      lastnameRules: [
-        v => !!v || 'Last Name is required',
-        v => (v && v.length <= 15) || 'Last Name must be less than 15 characters',
-      ],
-      date: '',
-      items: [
-        'M',
-        'F'
-      ],
-      gender: '',
-      createdAt: ''
+      category: '',
+      description: '',
+      duration: 0.0,
+      calories: 0.0,
+      started: '',
+      distance: 0.0,
+      createdAt: '',
+      userId: '',
+      categoryId: '',
+      activityId: ''
     };
   },
-  setup(){
+  mounted() {
     const route = useRoute();
-    const id = route.params.userid;
-    console.log(id)
+    const id = route.params.activityid;
+    ActivityService.getActivityById(id).then(
+        (response) => {
+          this.activityId = id;
+          this.userId = response.data.userId;
+          this.categoryId = response.data.categoryId;
+          this.description = response.data.description;
+          this.duration = response.data.duration;
+          this.calories = response.data.calories;
+          this.started = response.data.started;
+          this.distance = response.data.distance;
+          this.createdAt = response.data.created_at
+        }
+    );
   },
   methods: {
-    submit () {
-      console.log(this.username)
-      //this.$refs.observer.validate()
+      updateActivity(activityId) {
+        var data = {
+          userId : this.userId,
+          categoryId : this.categoryId,
+          description : this.description,
+          duration : this.duration,
+          calories : this.calories,
+          started : this.started,
+          distance : this.distance,
+        }
+        ActivityService.updateActivityById(activityId, data)
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        window.location.reload();
+      },
+      // clear () {
+      //   this.username = ''
+      //   this.firstname = ''
+      //   this.lastname = ''
+      //   this.gender = ''
+      //   this.dob = ''
+      // },
     },
-    clear () {
-      this.username = ''
-      this.email = ''
-      this.$refs.observer.reset()
-    },
-    async validate () {
-      const { valid } = await this.$refs.form.validate()
-
-      if (valid) alert('Form is valid')
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
-    },
-  },
 }
 </script>
 

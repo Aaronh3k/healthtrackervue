@@ -10,10 +10,15 @@ class ActivityService {
         return this.activities
     }
 
-    // getAllActivities() {
-    //     this.activities = axios.get(API_URL + 'activities', { headers: authHeader() });
-    //     return this.activities
-    // }
+    getActivityById(activityId) {
+        this.activity = axios.get(API_URL + 'activities/' + activityId, { headers: authHeader() });
+        return this.activity
+    }
+
+    updateActivityById(activityId, data) {
+        this.activity = axios.patch(API_URL + 'activities/' + activityId, data, { headers: authHeader() });
+        return this.activity
+    }
     
 }
 

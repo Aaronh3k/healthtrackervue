@@ -20,6 +20,16 @@ class ProfilesService {
         return this.profile
     }
 
+    getProfileByToken() {
+        this.profile = axios.get(API_URL + 'user-profile/', { headers: authHeader() });
+        return this.profile
+    }
+
+    updateProfileByToken(data) {
+        this.profile = axios.patch(API_URL + 'user-profile/', data, { headers: authHeader() });
+        return this.profile
+    }
+
 }
 
 export default new ProfilesService();

@@ -1,40 +1,218 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{currentUser.user_name}}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    {{currentUser.role}}
-  </div>
+  <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+  >
+    <v-text-field
+        v-model="username"
+        :counter="15"
+        :rules="usernameRules"
+        label="User Name"
+        required
+    ></v-text-field>
+
+    <v-text-field
+        v-model="email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+    ></v-text-field>
+
+    <v-text-field
+        v-model="firstname"
+        :counter="15"
+        :rules="firstnameRules"
+        label="First Name"
+    ></v-text-field>
+
+    <v-text-field
+        v-model="lastname"
+        :counter="15"
+        :rules="lastnameRules"
+        label="Last Name"
+    ></v-text-field>
+
+    <v-text-field
+        v-model="dob"
+        label="DOB"
+    ></v-text-field>
+
+    <v-select
+        v-model="gender"
+        :items="items"
+        :rules="[v => !!v || 'Gender is required']"
+        label="Gender"
+    ></v-select>
+
+    <v-text-field
+        v-model="role"
+        label="Role"
+        readonly
+    ></v-text-field>
+
+    <v-text-field
+        v-model="createdAt"
+        label="Created at"
+        readonly
+    ></v-text-field>
+
+    <v-btn color="success" small class="mr-2" @click="updateUserProfile()">
+      submit
+    </v-btn>
+
+    <v-btn color="primary" small class="mr-2" @click="clear">
+      clear
+    </v-btn>
+
+  </v-form>
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
+import UserService from "../services/user.service";
+import ProfilesService from "../services/profile.service";
+
 export default {
-  // eslint-disable-next-line
-  name: 'Profile',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
+  name: "User",
+  data() {
+    return {
+      valid: true,
+      username: '',
+      usernameRules: [
+        v => !!v || 'User Name is required',
+        v => (v && v.length <= 15) || 'User Name must be less than 15 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      firstname: '',
+      firstnameRules: [
+        v => !!v || 'First Name is required',
+        v => (v && v.length <= 15) || 'First Name must be less than 15 characters',
+      ],
+      lastname: '',
+      lastnameRules: [
+        v => !!v || 'Last Name is required',
+        v => (v && v.length <= 15) || 'Last Name must be less than 15 characters',
+      ],
+      dob: '',
+      items: [
+        'M',
+        'F'
+      ],
+      gender: '',
+      createdAt: '',
+      role: ''
+    };
   },
   mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
-    }
-  }
-};
+    UserService.getUserByToken().then(
+        (response) => {
+          this.username = response.data.user_name;
+          this.email = response.data.email;
+          this.role = response.data.role;
+        }
+    );
+    ProfilesService.getProfileByToken().then(
+        (response) => {
+          this.firstname = response.data.first_name;
+          this.lastname = response.data.last_name;
+          this.dob = response.data.dob;
+          this.gender = response.data.gender;
+          this.createdAt = response.data.created_at;
+        }
+    );
+  },
+  methods: {
+    updateUserProfile() {
+      var user_data = {
+        user_name : this.username,
+        email : this.email
+      }
+      var profile_data = {
+        first_name : this.firstname,
+        last_name : this.lastname,
+        dob: this.dob,
+        gender: this.gender
+      }
+      UserService.updateUserByToken(user_data)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      ProfilesService.updateProfileByToken(profile_data)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      window.location.reload();
+    },
+    clear () {
+      // this.username = ''
+      // this.firstname = ''
+      // this.lastname = ''
+      // this.gender = ''
+      // this.dob = ''
+    },
+  },
+}
 </script>
+
+<style>
+.list {
+  max-width: 750px;
+}
+</style>
+
+
+
+
+
+
+<!--<template>-->
+<!--  <div class="container">-->
+<!--    <header class="jumbotron">-->
+<!--      <h3>-->
+<!--        <strong>{{currentUser.user_name}}</strong> Profile-->
+<!--      </h3>-->
+<!--    </header>-->
+<!--    <p>-->
+<!--      <strong>Token:</strong>-->
+<!--      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}-->
+<!--    </p>-->
+<!--    <p>-->
+<!--      <strong>Id:</strong>-->
+<!--      {{currentUser.id}}-->
+<!--    </p>-->
+<!--    <p>-->
+<!--      <strong>Email:</strong>-->
+<!--      {{currentUser.email}}-->
+<!--    </p>-->
+<!--    <strong>Authorities:</strong>-->
+<!--    {{currentUser.role}}-->
+<!--  </div>-->
+<!--</template>-->
+
+<!--<script>-->
+<!--export default {-->
+<!--  // eslint-disable-next-line-->
+<!--  name: 'Profile',-->
+<!--  computed: {-->
+<!--    currentUser() {-->
+<!--      return this.$store.state.auth.user;-->
+<!--    }-->
+<!--  },-->
+<!--  mounted() {-->
+<!--    if (!this.currentUser) {-->
+<!--      this.$router.push('/login');-->
+<!--    }-->
+<!--  }-->
+<!--};-->
+<!--</script>-->

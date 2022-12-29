@@ -27,6 +27,16 @@ class UserService {
         this.users = axios.patch(API_URL + 'users/' + userId, data, { headers: authHeader() });
         return this.users
     }
+
+    updateUserByToken(data) {
+        this.user = axios.patch(API_URL + 'user/', data, { headers: authHeader() });
+        return this.user
+    }
+
+    getUserByToken() {
+        this.user = axios.get(API_URL + 'user/', { headers: authHeader() });
+        return this.user
+    }
     
 }
 

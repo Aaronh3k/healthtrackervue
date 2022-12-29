@@ -89,6 +89,13 @@ export default {
             }
         );
       }
+      else {
+        ActivityService.getAllActivitiesByToken().then(
+            (response) => {
+              this.activities = response.data;
+            }
+        );
+      }
     }
   }
 }

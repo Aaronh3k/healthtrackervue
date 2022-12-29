@@ -28,10 +28,10 @@
       <td>{{ item.description }}</td>
       <td>{{ item.created_at }}</td>
       <td>
-        <v-btn  icon :to="'/categories/' + item.id">
-          <v-icon>mdi-pencil</v-icon>
+        <v-btn  v-if="showAdminBoard" icon :to="'/categories/' + item.id">
+            <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn  icon :to="'/categories/' + item.id">
+        <v-btn  v-if="showAdminBoard" icon :to="'/categories/' + item.id">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </td>
@@ -59,10 +59,16 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role === 'ROLE_ADMIN';
+      }
+      return false;
+    },
   },
   mounted() {
     if (this.currentUser != null) {
-      if (this.currentUser.role === "ROLE_ADMIN") {
+      if (this.currentUser.role === "ROLE_ADMIN" || this.currentUser.role === "ROLE_USER" ) {
         CategoryService.getAllCategories().then(
             (response) => {
               this.categories = response.data;

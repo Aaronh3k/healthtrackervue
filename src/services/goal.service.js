@@ -4,6 +4,11 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:7000/api/';
 
 class GoalsService {
+    
+    addGoal(data){
+        this.goal = axios.post(API_URL + 'goals', data, { headers: authHeader() });
+        return this.goal
+    }
 
     getAllGoals() {
         this.goals = axios.get(API_URL + 'goals', { headers: authHeader() });
@@ -12,6 +17,11 @@ class GoalsService {
 
     getGoalById(goalId) {
         this.goal = axios.get(API_URL + 'goals/' + goalId, { headers: authHeader() });
+        return this.goal
+    }
+
+    deleteGoalById(goalId) {
+        this.goal = axios.delete(API_URL + 'goals/' + goalId, { headers: authHeader() });
         return this.goal
     }
 

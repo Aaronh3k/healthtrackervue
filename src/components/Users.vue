@@ -73,7 +73,7 @@ export default {
       UserService.deleteUserById(userId)
           .then((response) => {
             console.log(response.data);
-            this.$router.push("/users");
+            window.location.reload();
           })
           .catch((e) => {
             console.log(e);

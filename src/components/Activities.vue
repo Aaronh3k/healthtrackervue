@@ -51,7 +51,7 @@
         <v-btn  icon :to="'/activities/' + item.id">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn  icon :to="'/activities/' + item.id">
+        <v-btn  icon @click="deleteActivity(item.id)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </td>
@@ -71,6 +71,18 @@ export default {
     return {
       activities: [],
     };
+  },
+  methods: {
+    deleteActivity(activityId) {
+      ActivityService.deleteActivityById(activityId)
+          .then((response) => {
+            console.log(response.data);
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    }
   },
   computed: {
     loggedIn() {

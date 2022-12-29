@@ -5,6 +5,11 @@ const API_URL = 'http://localhost:7000/api/';
 
 class ActivityService {
 
+    addActivity(data) {
+        this.activity = axios.post(API_URL + 'activities', data, { headers: authHeader() });
+        return this.activity
+    }
+
     getAllActivities() {
         this.activities = axios.get(API_URL + 'activities', { headers: authHeader() });
         return this.activities
@@ -17,6 +22,11 @@ class ActivityService {
 
     getActivityById(activityId) {
         this.activity = axios.get(API_URL + 'activities/' + activityId, { headers: authHeader() });
+        return this.activity
+    }
+
+    deleteActivityById(activityId) {
+        this.activity = axios.delete(API_URL + 'activities/' + activityId, { headers: authHeader() });
         return this.activity
     }
 

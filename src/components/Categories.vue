@@ -31,7 +31,7 @@
         <v-btn  v-if="showAdminBoard" icon :to="'/categories/' + item.id">
             <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn  v-if="showAdminBoard" icon :to="'/categories/' + item.id">
+        <v-btn  v-if="showAdminBoard" icon @click="deleteCategory(item.id)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </td>
@@ -65,6 +65,18 @@ export default {
       }
       return false;
     },
+  },
+  methods: {
+    deleteCategory(categoryId) {
+      CategoryService.deleteCategoryById(categoryId)
+          .then((response) => {
+            console.log(response.data);
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    }
   },
   mounted() {
     if (this.currentUser != null) {

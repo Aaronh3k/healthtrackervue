@@ -43,7 +43,7 @@
         <v-btn  icon :to="'/goals/' + item.id">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn  icon :to="'/goals/' + item.id">
+        <v-btn  icon @click="deleteGoal(item.id)">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </td>
@@ -71,6 +71,18 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+  },
+  methods: {
+    deleteGoal(goalId) {
+      GoalService.deleteGoalById(goalId)
+          .then((response) => {
+            console.log(response.data);
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    }
   },
   mounted() {
     if (this.currentUser != null) {

@@ -15,6 +15,9 @@
           <router-link to="/users" class="nav-link">
             More Details...
           </router-link>
+          <router-link to="/adduser" class="nav-link">
+            Add
+          </router-link>
         </div>
       </div>
     </div>
@@ -25,6 +28,9 @@
           <h5 class="card-title">{{activities.length}}</h5>
           <router-link to="/activities" class="nav-link">
             More Details..
+          </router-link>
+          <router-link to="/addactivity" class="nav-link">
+            Add
           </router-link>
         </div>
       </div>
@@ -37,6 +43,9 @@
           <router-link to="/categories" class="nav-link">
             <font-awesome-icon icon="user" /> More Details..
           </router-link>
+          <router-link to="/addcategory" class="nav-link">
+            Add
+          </router-link>
         </div>
       </div>
     </div>
@@ -47,6 +56,9 @@
           <h5 class="card-title">{{goals.length}}</h5>
           <router-link to="/goals" class="nav-link">
             More Details..
+          </router-link>
+          <router-link to="/addgoal" class="nav-link">
+            Add
           </router-link>
         </div>
       </div>
@@ -61,6 +73,9 @@
           <router-link to="/activities" class="nav-link">
             More Details..
           </router-link>
+          <router-link to="/addactivity" class="nav-link">
+            Add
+          </router-link>
         </div>
       </div>
     </div>
@@ -71,6 +86,9 @@
           <h5 class="card-title">{{goals.length}}</h5>
           <router-link to="/goals" class="nav-link">
             More Details..
+          </router-link>
+          <router-link to="/addgoal" class="nav-link">
+            Add
           </router-link>
         </div>
       </div>

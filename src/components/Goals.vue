@@ -81,6 +81,13 @@ export default {
             }
         );
       }
+      else{
+        GoalService.getAllGoalsByToken().then(
+            (response) => {
+              this.goals = response.data;
+            }
+        );
+      }
     }
   }
 }

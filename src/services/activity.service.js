@@ -10,6 +10,11 @@ class ActivityService {
         return this.activities
     }
 
+    getAllActivitiesByToken() {
+        this.activities = axios.get(API_URL + 'user/activity', { headers: authHeader() });
+        return this.activities
+    }
+
     getActivityById(activityId) {
         this.activity = axios.get(API_URL + 'activities/' + activityId, { headers: authHeader() });
         return this.activity

@@ -6,7 +6,7 @@
       <h1>Health Tracker.</h1>
     </main>
   </div>
-  <div v-else-if="this.currentUser.role === 'ROLE_ADMIN'">
+  <div v-else-if="showAdminBoard">
     <div class="col">
       <div class="card">
         <h5 class="card-header">Registered Users</h5>
@@ -53,11 +53,44 @@
     </div>
   </div>
   <div v-else>
-    Health Tracker Logged User {{user}}
+    <div class="col">
+      <div class="card">
+        <h5 class="card-header">Number Of Activities</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{activities.length}}</h5>
+          <router-link to="/activities" class="nav-link">
+            More Details..
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <h5 class="card-header">Number Of Goals</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{goals.length}}</h5>
+          <router-link to="/goals" class="nav-link">
+            More Details..
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <h5 class="card-header">Number Of Categories</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{categories.length}}</h5>
+          <router-link to="/categories" class="nav-link">
+            <font-awesome-icon icon="user" /> More Details..
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+//"this.currentUser.role === 'ROLE_ADMIN'"
 import UserService from "../services/user.service";
 import ActivityService from "@/services/activity.service";
 import CategoryService from "@/services/category.service";
@@ -81,6 +114,12 @@ export default {
     },
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.role) {
+        return this.currentUser.role === 'ROLE_ADMIN';
+      }
+      return false;
     },
   },
   mounted() {
@@ -106,20 +145,22 @@ export default {
               this.goals = response.data;
             }
         )
-      } else {
-        UserService.getUserBoard().then(
+      } else if(this.currentUser.role === "ROLE_USER") {
+        ActivityService.getAllActivitiesByToken().then(
             (response) => {
-              this.user = response.data;
-            },
-            (error) => {
-              this.user =
-                  (error.response &&
-                      error.response.data &&
-                      error.response.data.message) ||
-                  error.message ||
-                  error.toString();
+              this.activities = response.data;
             }
         );
+        CategoryService.getAllCategories().then(
+            (response) => {
+              this.categories = response.data;
+            }
+        );
+        GoalService.getAllGoalsByToken().then(
+            (response) => {
+              this.goals = response.data;
+            }
+        )
       }
     }
   }

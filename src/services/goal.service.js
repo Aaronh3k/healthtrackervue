@@ -19,6 +19,11 @@ class GoalsService {
         this.goal = axios.patch(API_URL + 'goals/' + goalId, data, { headers: authHeader() });
         return this.goal
     }
+
+    getAllGoalsByToken() {
+        this.goals = axios.get(API_URL + 'user/goal', { headers: authHeader() });
+        return this.goals
+    }
 }
 
 export default new GoalsService();

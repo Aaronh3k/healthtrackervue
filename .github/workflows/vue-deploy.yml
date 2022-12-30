@@ -1,0 +1,12 @@
+name: Build Vue
+on: [push]
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    steps:
+    - uses: actions/checkout@v2
+    - id: Build-Vue
+      uses: devtomio/action-railway@v1.1.4
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}  

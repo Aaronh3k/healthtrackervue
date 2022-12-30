@@ -1,9 +1,15 @@
 <template>
-  <v-form v-if="!isAdmin"
+  <v-form
       ref="form"
       v-model="valid"
       lazy-validation
   >
+    <v-text-field v-if="isAdmin"
+        v-model="userId"
+        label="User ID"
+        required
+    ></v-text-field>
+
     <v-text-field
         v-model="categoryId"
         label="Category ID"

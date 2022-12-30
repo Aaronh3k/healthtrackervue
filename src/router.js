@@ -8,7 +8,6 @@ const BoardAdmin = () => import("./components/AdminDashboard.vue")
 const BoardUser = () => import("./components/UserDashboard.vue")
 const Users = () => import("./components/Users.vue")
 const User = () => import("./components/User.vue")
-const AddUser = () => import("./components/AddUser.vue")
 const Activities = () => import("./components/Activities.vue")
 const Activity = () => import("./components/Activity.vue")
 const AddActivity = () => import("./components/AddActivity.vue")
@@ -62,12 +61,6 @@ const routes = [
         name: "user",
         // lazy-loaded
         component: User,
-    },
-    {
-        path: '/adduser',
-        name: "adduser",
-        // lazy-loaded
-        component: AddUser,
     },
     {
         path: '/activities',

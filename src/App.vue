@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href="/" class="navbar-brand">W20100312</a>
+      <a href="/" class="navbar-brand">Home</a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link v-if="showAdminBoard" to="/activities" class="nav-link">Activities</router-link>

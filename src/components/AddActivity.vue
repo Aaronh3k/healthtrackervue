@@ -16,13 +16,6 @@
         required
     ></v-text-field>
 
-<!--    <v-select-->
-<!--        v-model="category"-->
-<!--        :items="categoryItems"-->
-<!--        :rules="[v => !!v || 'Category is required']"-->
-<!--        label="Category"-->
-<!--    ></v-select>-->
-
     <v-text-field
         v-model="description"
         label="Description"
@@ -45,8 +38,7 @@
 
     <v-text-field
         v-model="started"
-        type="date"
-        label="Starting"
+        label="Starting (YYYY-MM-DD)"
         required
     ></v-text-field>
 

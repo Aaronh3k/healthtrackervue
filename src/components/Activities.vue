@@ -44,7 +44,7 @@
       <td>{{ item.description }}</td>
       <td>{{ item.duration }}</td>
       <td>{{ item.calories }}</td>
-      <td>{{ item.started }}</td>
+      <td>{{ item.started.split('T')[0] }}</td>
       <td>{{ item.distance }}</td>
       <td>{{ item.created_at }}</td>
       <td>

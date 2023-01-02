@@ -16,6 +16,11 @@ class ProfilesService {
         return this.profile
     }
 
+    addProfile(data){
+        this.profile = axios.post(API_URL + 'profile/', data, { headers: authHeader() });
+        return this.profile
+    }
+
     updateProfileById(profileId, data){
         this.profile = axios.patch(API_URL + 'profile/' + profileId, data, { headers: authHeader() });
         return this.profile

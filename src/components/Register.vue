@@ -41,7 +41,7 @@
           class="alert"
           :class="successful ? 'alert-success' : 'alert-danger'"
       >
-        {{ message }}
+        {{ message }} - Please <a href="/login">Login</a>
       </div>
     </div>
   </div>
@@ -104,6 +104,7 @@ export default {
       this.$store.dispatch("auth/register", user).then(
           (data) => {
             this.message = data.message;
+            this.userId = data.userId;
             this.successful = true;
             this.loading = false;
           },

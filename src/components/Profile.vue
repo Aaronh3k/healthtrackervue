@@ -122,7 +122,7 @@ export default {
           this.username = response.data.user_name;
           this.email = response.data.email;
           this.role = response.data.role;
-          this.userId = response.data.userId;
+          this.userId = response.data.id;
         }
     );
     ProfilesService.getProfileByToken().then(
@@ -144,6 +144,7 @@ export default {
         email : this.email
       }
       var profile_data = {
+        userId : this.userId,
         first_name : this.firstname,
         last_name : this.lastname,
         dob: this.dob,
@@ -177,7 +178,6 @@ export default {
         gender: this.gender,
         userId: this.userId
       }
-      console.log(profile_data)
       UserService.updateUserByToken(user_data)
           .then((response) => {
             console.log(response.data);
@@ -210,49 +210,3 @@ export default {
   max-width: 750px;
 }
 </style>
-
-
-
-
-
-
-<!--<template>-->
-<!--  <div class="container">-->
-<!--    <header class="jumbotron">-->
-<!--      <h3>-->
-<!--        <strong>{{currentUser.user_name}}</strong> Profile-->
-<!--      </h3>-->
-<!--    </header>-->
-<!--    <p>-->
-<!--      <strong>Token:</strong>-->
-<!--      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}-->
-<!--    </p>-->
-<!--    <p>-->
-<!--      <strong>Id:</strong>-->
-<!--      {{currentUser.id}}-->
-<!--    </p>-->
-<!--    <p>-->
-<!--      <strong>Email:</strong>-->
-<!--      {{currentUser.email}}-->
-<!--    </p>-->
-<!--    <strong>Authorities:</strong>-->
-<!--    {{currentUser.role}}-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--export default {-->
-<!--  // eslint-disable-next-line-->
-<!--  name: 'Profile',-->
-<!--  computed: {-->
-<!--    currentUser() {-->
-<!--      return this.$store.state.auth.user;-->
-<!--    }-->
-<!--  },-->
-<!--  mounted() {-->
-<!--    if (!this.currentUser) {-->
-<!--      this.$router.push('/login');-->
-<!--    }-->
-<!--  }-->
-<!--};-->
-<!--</script>-->

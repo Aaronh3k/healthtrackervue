@@ -13,7 +13,6 @@
     <v-text-field
         v-model="categoryId"
         label="Category ID"
-        readonly
     ></v-text-field>
 
     <v-text-field
@@ -26,6 +25,7 @@
         v-model="duration"
         label="Duration"
         type="float"
+        suffix="hr"
     ></v->
 
     <v-text-field
@@ -99,7 +99,7 @@ export default {
           this.description = response.data.description;
           this.duration = response.data.duration;
           this.calories = response.data.calories;
-          this.started = response.data.started;
+          this.started = response.data.started.split('T')[0];
           this.distance = response.data.distance;
           this.createdAt = response.data.created_at
         }

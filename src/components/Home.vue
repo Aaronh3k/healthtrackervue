@@ -3,6 +3,8 @@
     <div class="bgimg">
       <div class="middle">
         <h1>WELCOME TO HEALTHTRACKER APPPLICATION</h1>
+        <hr>
+        <p>Please Login or Register</p>
       </div>
     </div>
   </div>

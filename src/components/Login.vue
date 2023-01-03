@@ -30,7 +30,7 @@
 
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
+            {{ message }} - Please <a href="/login">Login</a>
           </div>
         </div>
       </Form>

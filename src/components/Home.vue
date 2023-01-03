@@ -61,7 +61,7 @@
           More Details
         </v-btn>
         <v-btn to="/addcategory" color="blue-grey" elevation="2" x-large>
-          Add Activity
+          Add Category
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -81,7 +81,7 @@
           More Details
         </v-btn>
         <v-btn to="/addgoal" color="blue-grey" elevation="2" x-large>
-          Add Activity
+          Add Goal
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -122,7 +122,7 @@
           More Details
         </v-btn>
         <v-btn to="/addgoal" color="blue-grey" elevation="2" x-large>
-          Add Activity
+          Add Goal
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -142,7 +142,7 @@
           More Details
         </v-btn>
         <v-btn to="/addcategory" color="blue-grey" elevation="2" x-large>
-          Add Activity
+          Add Category
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -262,48 +262,3 @@ hr {
   width: 40%;
 }
 </style>
-
-
-<!--<script type="text/x-template" id="app-template">-->
-<!--<v-app>-->
-
-<!--<v-card class="mx-auto" max-width="1000">-->
-<!--  <v-card-item title="Total Users Registered"></v-card-item>-->
-<!--  <v-card-text class="py-0">-->
-<!--    <v-row align="center" justify="center" no-gutters>-->
-<!--      <v-col class="text-h1" cols="4">-->
-<!--        2-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-<!--  </v-card-text>-->
-<!--  <v-divider></v-divider>-->
-<!--  <v-card-actions>-->
-<!--    <v-btn @click="">-->
-<!--      More Details-->
-<!--    </v-btn>-->
-<!--    <v-btn>Add Users</v-btn>-->
-<!--  </v-card-actions>-->
-<!--</v-card>-->
-
-
-<!--<v-spacer></v-spacer>-->
-<!--<v-card class="mx-auto" max-width="1000">-->
-<!--  <v-card-item title="Total Users Registered"></v-card-item>-->
-<!--  <v-card-text class="py-0">-->
-<!--    <v-row align="center" justify="center" no-gutters>-->
-<!--      <v-col class="text-h1" cols="4">-->
-<!--        2-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-<!--  </v-card-text>-->
-<!--  <v-divider></v-divider>-->
-<!--  <v-card-actions>-->
-<!--    <v-btn @click="">-->
-<!--      More Details-->
-<!--    </v-btn>-->
-<!--    <v-btn>Add Users</v-btn>-->
-<!--</v-card>-->
-<!--</v-app>-->
-<!--</script>-->
-
-<!--<div id="app"></div>-->

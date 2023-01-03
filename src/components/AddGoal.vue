@@ -5,6 +5,12 @@
       lazy-validation
   >
 
+    <v-text-field v-if="isAdmin"
+                  v-model="userId"
+                  label="User ID"
+                  required
+    ></v-text-field>
+
     <v-text-field
         v-model="calories"
         type="float"
@@ -58,6 +64,7 @@ export default {
       calories: 0.0,
       steps: 0,
       distance: 0.0,
+      userId : ''
     };
   },
   computed: {
@@ -73,12 +80,22 @@ export default {
   },
   methods: {
     addGoalUser() {
+      if (!this.isAdmin){
       var data = {
         userId : this.currentUser.Id,
         calories : this.calories,
         steps : this.steps,
         distance : this.distance,
         standing_hours : this.standing_hours
+      }}
+      else{
+        var data = {
+          userId : this.userId,
+          calories : this.calories,
+          steps : this.steps,
+          distance : this.distance,
+          standing_hours : this.standing_hours
+        }
       }
 
       GoalService.addGoal(data)
@@ -91,13 +108,13 @@ export default {
 
       this.$router.push("/goals")
     },
-    // clear () {
-    //   this.username = ''
-    //   this.firstname = ''
-    //   this.lastname = ''
-    //   this.gender = ''
-    //   this.dob = ''
-    // },
+    clear () {
+      this.userId = ''
+      this.calories = ''
+      this.steps = ''
+      this.distance = ''
+      this.standing_hours = ''
+    },
   },
 }
 </script>

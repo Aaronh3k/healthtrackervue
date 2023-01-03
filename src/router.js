@@ -4,8 +4,6 @@ import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 // lazy-loaded
 const Profile = () => import("./components/Profile.vue")
-const BoardAdmin = () => import("./components/AdminDashboard.vue")
-const BoardUser = () => import("./components/UserDashboard.vue")
 const Users = () => import("./components/Users.vue")
 const User = () => import("./components/User.vue")
 const Activities = () => import("./components/Activities.vue")
@@ -37,18 +35,6 @@ const routes = [
         name: "profile",
         // lazy-loaded
         component: Profile,
-    },
-    {
-        path: "/admin",
-        name: "admin",
-        // lazy-loaded
-        component: BoardAdmin,
-    },
-    {
-        path: "/user",
-        name: "user",
-        // lazy-loaded
-        component: BoardUser,
     },
     {
         path: "/users",

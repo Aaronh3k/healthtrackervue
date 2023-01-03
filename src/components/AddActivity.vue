@@ -26,6 +26,7 @@
         v-model="duration"
         label="Duration"
         type="float"
+        suffix="hr"
     ></v-text-field>
 
     <v-text-field
@@ -95,6 +96,7 @@ export default {
   },
   methods: {
     addActivityUser() {
+      if (!this.isAdmin){
       var data = {
         userId : this.currentUser.Id,
         categoryId : this.categoryId,
@@ -103,6 +105,17 @@ export default {
         calories : this.calories,
         started : this.started,
         distance : this.distance,
+      }}
+      else{
+        var data = {
+          userId : this.userId,
+          categoryId : this.categoryId,
+          description : this.description,
+          duration : this.duration,
+          calories : this.calories,
+          started : this.started,
+          distance : this.distance,
+        }
       }
 
       ActivityService.addActivity(data)
@@ -115,13 +128,15 @@ export default {
 
       this.$router.push("/activities")
     },
-    // clear () {
-    //   this.username = ''
-    //   this.firstname = ''
-    //   this.lastname = ''
-    //   this.gender = ''
-    //   this.dob = ''
-    // },
+    clear () {
+      this.userId = ''
+      this.categoryId = ''
+      this.description = ''
+      this.duration = ''
+      this.calories = ''
+      this.started = ''
+      this.distance = ''
+    },
   },
 }
 </script>

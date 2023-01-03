@@ -17,6 +17,7 @@
         :rules="emailRules"
         label="E-mail"
         required
+        readonly
     ></v-text-field>
 
     <v-text-field
@@ -44,6 +45,12 @@
         :rules="[v => !!v || 'Gender is required']"
         label="Gender"
     ></v-select>
+
+    <v-text-field
+        v-model="role"
+        label="Role"
+        readonly
+    ></v-text-field>
 
     <v-text-field
         v-model="createdAt"
@@ -100,7 +107,9 @@ export default {
       gender: '',
       createdAt: '',
       userId: '',
-      profileId: ''
+      profileId: '',
+      role: '',
+      token : ''
     };
   },
   mounted() {
@@ -111,6 +120,8 @@ export default {
           this.userId = id
           this.username = response.data.user_name;
           this.email = response.data.email;
+          this.role = response.data.role;
+          this.token = response.data.token
         }
     );
     ProfilesService.getProfileByUserId(id).then(
@@ -118,7 +129,7 @@ export default {
           this.profileId = response.data.id;
           this.firstname = response.data.first_name;
           this.lastname = response.data.last_name;
-          this.dob = response.data.dob;
+          this.dob = response.data.dob.split('T')[0];
           this.gender = response.data.gender;
           this.createdAt = response.data.created_at;
         }
@@ -131,6 +142,7 @@ export default {
         email : this.email
       }
       var profile_data = {
+        userId : userId,
         first_name : this.firstname,
         last_name : this.lastname,
         dob: this.dob,

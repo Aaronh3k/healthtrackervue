@@ -4,7 +4,7 @@
       <div class="middle">
         <h1>WELCOME TO HEALTHTRACKER APPPLICATION</h1>
         <hr>
-        <p>Please Login or Register</p>
+        <p>Please <a href="/login">Login</a> or <a href="/register">Register</a></p>
       </div>
     </div>
   </div>

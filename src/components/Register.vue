@@ -41,7 +41,7 @@
           class="alert"
           :class="successful ? 'alert-success' : 'alert-danger'"
       >
-        {{ message }} - Please <a href="/login">Login</a>
+        {{ message }} - Please Login
       </div>
     </div>
   </div>

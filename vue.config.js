@@ -6,7 +6,8 @@ module.exports = defineConfig({
     vuetify: {
 			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
 		}
-  }
+  },
+  devServer: {
+        proxy: 'https://healthtrackerrest-production-cb60.up.railway.app/',
+    }
 })
-
-module.exports = { devServer: { proxy: 'https://healthtrackerrest-production-cb60.up.railway.app/api/'}};

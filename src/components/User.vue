@@ -36,7 +36,7 @@
 
     <v-text-field
         v-model="dob"
-        label="DOB"
+        label="DOB (YYYY-MM-DD)"
     ></v-text-field>
 
     <v-select

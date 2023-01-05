@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//const API_URL = 'http://localhost:7000/api/';
-const API_URL = 'https://healthtrackerrest-production-cb60.up.railway.app/api/';
+const API_URL = 'http://localhost:7000/api/';
+//const API_URL = 'https://healthtrackerrest-production-cb60.up.railway.app/api/';
 
 class AuthService {
     login(user) {

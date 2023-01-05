@@ -8,3 +8,5 @@ module.exports = defineConfig({
 		}
   }
 })
+
+module.exports = { devServer: { proxy: 'https://healthtrackerrest-production-cb60.up.railway.app/api/'}};
